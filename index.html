@@ -1,24 +1,24 @@
+<html>
+<head>
+<title>CMU 10703: Deep RL and Control</title>
+</head>
 
-<HTML>
-<HEAD>
-<TITLE>10703: Deep Reinforcement Learning and Control Home
-  Page</TITLE>
-
-</HEAD>
-<BODY>
+<BODY MARGINWIDTH=10 MARGINHEIGHT=20>
 <CENTER>
+<table border="0" cellpadding="0" cellspacing="0" width="800">
+<td valign="top">
+<h1>
+Deep Reinforcement Learning and Control
 <br>
+<font size="+2">
+Spring 2017, CMU 10703
+</font>
+</h1>
+
 <br>
-<br>
-<h1>10703: Deep Reinforcement Learning and Control, Spring 2017 </h1>
-<br>
-</CENTER>
-<P>
-<hr>
 <b>Instructors:</b> <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>, <a href="http://www.cs.cmu.edu/~rsalakhu/">Ruslan Satakhutdinov</a> <br>
 <b>Lectures:</b> Mondays and Wednesdays, 3:00pm-4:20pm, Gates and Hillman Centers 4401<br>
-<b>Office Hours:</b> Katerina: Fri 1.15pm-2.15pm at 8015 Gates and
-Hillman Centers <br>
+<b>Office Hours:</b> Katerina: Fri 1.15pm-2.15pm at 8015 Gates and Hillman Centers <br>
 <b>Teaching Assistants</b>
 <ul>
   <li>Devin Schwab: Thursday 2-3pm, NSH 4225</li>
@@ -26,18 +26,16 @@ Hillman Centers <br>
   <li>Renato Negrinho: Wednesday 5-6pm, GHC 8213</li>
 </ul>
 
-<b>Communication:</b> Piazza is intended for all future announcements, general questions about the course, clarifications about assignments, student questions to each other, discussions about material, and so on. We strongly encourage all students to participate in discussion, ask, and answer questions through this site. To sign up, go to <a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">the course’s Piazza website</a>. <br>
-<hr>
+<b>Communication:</b> Piazza is intended for all future announcements, general questions about the course, clarifications about assignments, student questions to each other, discussions about material, and so on. We strongly encourage all students to participate in discussion, ask, and answer questions through Piazza (<a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">link</a>). <br>
+
 <ul>
 <li> <a href="#prerequisites">Prerequisites</a> </li>
 <li> <a href="#class goals">Class goals</a></li>
-<li> <a href="#syllabus">Syllabus</a> </li>
+<li> <a href="#schedule">Couse schedule</a> </li>
 <li> <a href="#related materials">Related materials</a> </li>
 <li> <a href="#assignments"> Assignments </a> </li>
 <li> <a href="#grading">Grading</a> </li>
 </ul>
-
-
 
 
 <br>
@@ -71,18 +69,78 @@ Try out some ideas/extensions of your own. Particular focus on incorporating tru
 
 
 
-<hr><a name="syllabus"></a>
 
-<h2> Syllabus </h2>
-<b> The following syllabus is tentative, it  will continuously change based on time constraints and interest of the people in the class.  </b>  Reading materials and lecture notes will be added as lectures progress.
-<iframe width=100% height=750px src="https://docs.google.com/spreadsheets/d/1m5jnq4GKJbMteULVoaHs59VQ3D8PUGSFavl8-dQ-zEs/edit?usp=sharing"></iframe>
+<hr><a name="schedule"></a>
+<h2> Class schedule</h2>
+The following schedule is tentative, it  will continuously change based on time constraints and interest of the people in the class. Reading materials and lecture notes will be added as lectures progress.
+<br>
+<br>
 
-<br> <br>
+  <table border="0" cellpadding="5" width="100%">
+    <tr>
+      <th> <em>Date</em></th>
+      <th> <em>Topic</em></th>
+      <th> <em>Lecturer</em></th>
+      <th> <em>Resources</em></th>
+      </tr>
+    <tr>
+      <td>1/18</td>
+      <td>Introduction</>
+      <td>Katerina</td>
+      <td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture1_intro.pdf">Slides</a></td>
+      </tr>
+    <tr>
+      <td>1/23</td>
+      <td>Markov decision processes (MDPs), POMDPs</>
+      <td>Katerina</td>
+      <td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture2_mdps.pdf">Slides</a>, Ch 3</td>
+      </tr>
+    <tr>
+      <td>1/25</td>
+      <td>Solving known MDPs: Dynamic Programming</td>
+      <td>Katerina</td>
+      <td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture3_exactmethods.pdf">Slides</a>, Ch 4</td>
+      </tr>
+    <tr>
+      <td>1/30</td>
+      <td>Monte Carlo learning: value function (vf) estimation and optimization</>
+      <td>Russ</td>
+      <td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_MC.pdf>Slides</a>, Ch 5</td>
+      </tr>
+    <tr>
+      <td>2/1</td>
+      <td>Temporal difference learning: vf estimation and optimization,  Q learning, SARSA </td>
+      <td>Russ</td>
+      <td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_TD.pdf>Slides</a>, Ch 8</td>
+      </tr>
+    
+      <tr>
+      <td>2/2-Th</td>
+      <td>OpenAI Gym recitation </td>
+      <td>Devin</td>
+      <td><a href=https://katefvision.github.io/10703_openai_gym_recitation.pdf>Slides</a></td>
+      </tr>
+      
+      <tr>
+      <td>2/6</td>
+      <td>Planning and learning: Dyna, Monte carlo tree search</td>
+      <td>Katerina</td>
+      <td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture6_planinglearning.pdf>Slides</a></td>
+      </tr>
+      
+      <tr>
+      <td>2/8</td>
+      <td>Value function approximation (VFA), MC, TD with VFA, Control with VFA</td>
+      <td>Russ</td>
+      <td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_VFA.pdf>Slides</a></td>
+      </tr>
+</table>
 
+<br>
+<br>
 <hr><a name="related materials"></a>
-
 <h2>Related materials</h2>
-<h3>Related textbooks</h3>
+<h3>Textbooks</h3>
 <ul>
   <li><a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton &amp; Barto, Reinforcement Learning: An Introduction</a></li>
   <li><a href="http://www.ualberta.ca/~szepesva/RLBook.html">Szepesvari, Algorithms for Reinforcement Learning</a></li>
@@ -91,7 +149,7 @@ Try out some ideas/extensions of your own. Particular focus on incorporating tru
   <li><a href="http://adp.princeton.edu/">Powell, Approximate Dynamic Programming</a></li>
 </ul>
 
-<h3>Related classes</h3>
+<h3>Online classes</h3>
 <ul>
 <li> <a href="http://incompleteideas.net/sutton/609%20dropbox/">  Rich Sutton’s  class:  Reinforcement Learning for Artificial Intelligence, Fall 2016 </a></li>
 <li> <a href="http://rll.berkeley.edu/deeprlcourse-fa15/">  John Schulman’s and Pieter Abeel’s class:  Deep Reinforcement Learning, Fall 2015 </a></li>
@@ -126,7 +184,7 @@ Try out some ideas/extensions of your own. Particular focus on incorporating tru
 
 
 
-
-
+</td>
+</table>
 </BODY>
 </HTML>
