@@ -5,10 +5,26 @@
 
 <style>
 a {text-decoration: none; }
-a {color:#0000A0;}      /* unvisited link */
-a:visited {color:#0000A0;}  /* visited link */
-a:hover {color:#FF0000;}  /* mouse over link */
+a {color:#0000A0;}         /* unvisited link */
+a:visited {color:#0000A0;} /* visited link */
+a:hover {color:#FF0000;}   /* mouse over link */
 a:active {color:#0000A0;}  /* selected link */
+ol{
+    list-style-type: none;
+    counter-reset: elementcounter;
+    padding-left: 0;
+}
+
+#bib_list_books li:before{
+    content: "";
+    counter-increment:elementcounter;
+    font-weight: bold;
+}
+#bib_list_articles li:before{
+    content: "[" counter(elementcounter) "] ";
+    counter-increment:elementcounter;
+}
+
 </style>
 <BODY MARGINWIDTH=10 MARGINHEIGHT=20>
 <CENTER>
@@ -76,7 +92,7 @@ The following schedule is tentative, it  will continuously change based on time 
 <td>1/18</td>
 <td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture1_intro.pdf">Introduction</a></td>
 <td>Katerina</td>
-<td><a href="#readings">[2]</a></td>
+<td><a href="#readings">[1]</a></td>
 </tr>
 <tr>
 <td>1/23</td>
@@ -111,7 +127,7 @@ The following schedule is tentative, it  will continuously change based on time 
 <td>2/6</td>
 <td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture6_planninglearning.pdf>Planning and learning: Dyna, Monte carlo tree search</a></td>
 <td>Katerina</td>
-<td><a href="#readings">[SB, Ch 8; 3]</a></td>
+<td><a href="#readings">[SB, Ch 8; 2]</a></td>
 </tr>
 <tr>
 <td>2/8</td>
@@ -123,13 +139,13 @@ The following schedule is tentative, it  will continuously change based on time 
 <td>2/13</td>
 <td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part1.pdf>VF approximation, Deep Learning, Convnets, back-propagation</a></td>
 <td>Russ</td>
-<td><a href="#readings">[DL Book, Ch 6]</a></td>
+<td><a href="#readings">[GBC, Ch 6]</a></td>
 </tr>
 <tr>
 <td>2/15</td>
 <td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part2.pdf>Deep Learning, Convnets, optimization tricks</a></td>
 <td>Russ</td>
-<td><a href="#readings">[DL Book, Ch 9]</a></td>
+<td><a href="#readings">[GBC, Ch 9]</a></td>
 </tr>
 <tr>
 <td>2/20</td>
@@ -155,12 +171,12 @@ The following schedule is tentative, it  will continuously change based on time 
 <td>3/6</td>
 <td>Exploration</a></td>
 <td>Katerina</td>
-<td><a href="#readings">[4, 5]</a> </td>
+<td><a href="#readings">[3, 4]</a> </td>
 </tr>
 <td>3/8</td>
 <td>Imitation 1</td>
 <td>Katerina</td>
-<td><a href="#readings">[6, 7]</a> </td>
+<td><a href="#readings">[5, 6]</a> </td>
 </tr>
 <td>3/20</td>
 <td>Imitation 2</td>
@@ -174,15 +190,17 @@ The following schedule is tentative, it  will continuously change based on time 
 <h2>Resources</h2>
 <a name="readings"></a>
 <h3>Readings</h3>
-<ol type="1">
-  <li><a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton & Barto, <i>Reinforcement Learning: An Introduction</i></a></li>
+<ol id="bib_list_books">
+  <li>[SB] <a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton & Barto, <i>Reinforcement Learning: An Introduction</i></a></li>
+  <li>[GBC] <a href=http://www.deeplearningbook.org>Goodfellow, Bengio & Courville, <i>Deep Learning</i></a></li>
+</ol>
+<ol id="bib_list_articles">
   <li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf">Smith & Gasser, <i>The Development of Embodied Cognition: Six Lessons from Babies</i></a></li>
   <li><a href=https://gogameguru.com/i/2016/03/deepmind-mastering-go.pdf>Silver, Huang et al., <i>Mastering the Game of Go with Deep Neural Networks and Tree Search</i></a></li>
   <li><a href=https://arxiv.org/abs/1605.09674>Houthooft et al., <i>VIME: Variational Information Maximizing Exploration</i></a></li>
   <li><a href=https://arxiv.org/abs/1507.00814>Stadie et al., <i>Incentivizing Exploration In Reinforcement Learning With Deep Predictive Models</i></a></li>
   <li><a href=http://www.ri.cmu.edu/publication_view.html?pub_id=7891>Bagnell, <i>An Invitation to Imitation</i></a></li>
   <li><a href=https://arxiv.org/abs/1606.03476>Ho & Ermon, <i>Generative Adversarial Imitation Learning</i></a></li>
-  <li><a href=http://www.deeplearningbook.org><i>Deep Learning Book</i></a></li>
 </ol>
 
 <h3>General references</h3>
