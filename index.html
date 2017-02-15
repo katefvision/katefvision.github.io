@@ -5,10 +5,26 @@
 
 <style>
 a {text-decoration: none; }
-a {color:#0000A0;}      /* unvisited link */
-a:visited {color:#0000A0;}  /* visited link */
-a:hover {color:#FF0000;}  /* mouse over link */
+a {color:#0000A0;}         /* unvisited link */
+a:visited {color:#0000A0;} /* visited link */
+a:hover {color:#FF0000;}   /* mouse over link */
 a:active {color:#0000A0;}  /* selected link */
+ol{
+    list-style-type: none;
+    counter-reset: elementcounter;
+    padding-left: 0;
+}
+
+#bib_list_books li:before{
+    content: "";
+    counter-increment:elementcounter;
+    font-weight: bold;
+}
+#bib_list_articles li:before{
+    content: "[" counter(elementcounter) "] ";
+    counter-increment:elementcounter;
+}
+
 </style>
 <BODY MARGINWIDTH=10 MARGINHEIGHT=20>
 <CENTER>
@@ -25,7 +41,11 @@ Spring 2017, CMU 10703
 <br>
 <b>Instructors:</b> <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>, <a href="http://www.cs.cmu.edu/~rsalakhu/">Ruslan Satakhutdinov</a> <br>
 <b>Lectures:</b> MW, 3:00-4:20pm, Gates and Hillman Centers 4401<br>
-<b>Office Hours:</b> Katerina: Fri 1.15-2.15pm at 8015 Gates and Hillman Centers <br>
+<b>Office Hours:</b>
+<ul>
+  <li>Katerina: Thursday 1.30-2.30pm at 8015 Gates and Hillman Centers <br></li>
+  <li>Russ: Friday 1.15-2.15pm at 8017 Gates and Hillman Centers <br></li>
+</ul>
 <b>Teaching Assistants:</b>
 <ul>
   <li>Devin Schwab: Thursday 2-3pm, NSH 4225</li>
@@ -36,13 +56,186 @@ Spring 2017, CMU 10703
 <b>Communication:</b> Piazza is intended for all future announcements, general questions about the course, clarifications about assignments, student questions to each other, discussions about material, and so on. We strongly encourage all students to participate in discussion, ask, and answer questions through Piazza (<a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">link</a>). <br>
 
 <ul>
-<li> <a href="#prerequisites">Prerequisites</a> </li>
 <li> <a href="#class goals">Class goals</a></li>
 <li> <a href="#schedule">Schedule</a> </li>
-<li> <a href="#related materials">Related materials</a> </li>
-<li> <a href="#assignments"> Assignments </a> </li>
-<li> <a href="#grading">Grading</a> </li>
+<li> <a href="#resources">Resources</a> </li>
+<li> <a href="#assignments">Assignments and grading</a> </li>
+<li> <a href="#prerequisites">Prerequisites</a> </li>
 </ul>
+
+
+
+<a name="class goals"></a>
+<h2> Class goals</h2>
+<ul>
+<li>Implement and experiment with existing algorithms for learning control policies guided by reinforcement, expert demonstrations or self-trials.</li>
+<li>Evaluate the sample complexity, generalization and generality of these algorithms.</li>
+<li>Be able to understand research papers in the field of robotic learning. </li>
+<li>Try out some ideas/extensions of your own. Particular focus on incorporating true sensory signal from vision or tactile sensing, and exploring the synergy between learning from simulation versus learning from real experience.</li>
+</ul>
+
+
+<a name="schedule"></a>
+<h2> Schedule</h2>
+The following schedule is tentative, it  will continuously change based on time constraints and interest of the people in the class. Reading materials and lecture notes will be added as lectures progress.
+<br>
+<br>
+
+<table border="0" cellpadding="5" width="100%">
+<tr>
+<th width="8%" align="left" > <em>Date</em></th>
+<th width="60%" align="left" > <em>Topic (slides)</em></th>
+<th width="12%" align="left" > <em>Lecturer</em></th>
+<th width="20%" align="left" > <em>Readings</em></th>
+</tr>
+<tr>
+<td>1/18</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture1_intro.pdf">Introduction</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[1]</a></td>
+</tr>
+<tr>
+<td>1/23</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture2_mdps.pdf">Markov decision processes (MDPs), POMDPs</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 3]</td>
+</tr>
+<tr>
+<td>1/25</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture3_mdp_planning.pdf">Solving known MDPs: Dynamic Programming</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 4]</td>
+</tr>
+<tr>
+<td>1/30</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_MC.pdf>Monte Carlo learning: value function (VF) estimation and optimization</a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 5]</td>
+</tr>
+<tr>
+<td>2/1</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_TD.pdf>Temporal difference learning: VF estimation and optimization,  Q learning, SARSA </a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 8]</td>
+</tr>
+<tr>
+<td>2/2</td>
+<td><a href=https://katefvision.github.io/10703_openai_gym_recitation.pdf>OpenAI Gym recitation </a></td>
+<td>Devin</td>
+</tr>
+<tr>
+<td>2/6</td>
+<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture6_planninglearning.pdf>Planning and learning: Dyna, Monte carlo tree search</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 8; 2]</a></td>
+</tr>
+<tr>
+<td>2/8</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_VFA.pdf>VF approximation, MC, TD with VF approximation, Control with VF approximation</a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 9]</a></td>
+</tr>
+<tr>
+<td>2/13</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part1.pdf>VF approximation, Deep Learning, Convnets, back-propagation</a></td>
+<td>Russ</td>
+<td><a href="#readings">[GBC, Ch 6]</a></td>
+</tr>
+<tr>
+<td>2/15</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part2.pdf>Deep Learning, Convnets, optimization tricks</a></td>
+<td>Russ</td>
+<td><a href="#readings">[GBC, Ch 9]</a></td>
+</tr>
+<tr>
+<td>2/20</td>
+<td>Deep Q Learning : Double Q learning, replay memory</a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>2/22</td>
+<td>Policy Gradients (1): REINFORCE, Natural Policy gradients, Variance reduction in gradient estimation, Actor-Critic, Deep Actor-Critic, TRPO</a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>2/27</td>
+<td>Policy Gradients (2)</td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>3/1</td>
+<td>Closer look at Continuous Actions, Variational Autoencoders, multimodal stochastic policies</a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>3/6</td>
+<td>Exploration</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[3, 4]</a> </td>
+</tr>
+<td>3/8</td>
+<td>Imitation 1</td>
+<td>Katerina</td>
+<td><a href="#readings">[5, 6]</a> </td>
+</tr>
+<td>3/20</td>
+<td>Imitation 2</td>
+<td>Katerina</td>
+</tr>
+</table>
+
+
+
+<a name="resources"></a>
+<h2>Resources</h2>
+<a name="readings"></a>
+<h3>Readings</h3>
+<ol id="bib_list_books">
+  <li>[SB] <a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton & Barto, <i>Reinforcement Learning: An Introduction</i></a></li>
+  <li>[GBC] <a href=http://www.deeplearningbook.org>Goodfellow, Bengio & Courville, <i>Deep Learning</i></a></li>
+</ol>
+<ol id="bib_list_articles">
+  <li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf">Smith & Gasser, <i>The Development of Embodied Cognition: Six Lessons from Babies</i></a></li>
+  <li><a href=https://gogameguru.com/i/2016/03/deepmind-mastering-go.pdf>Silver, Huang et al., <i>Mastering the Game of Go with Deep Neural Networks and Tree Search</i></a></li>
+  <li><a href=https://arxiv.org/abs/1605.09674>Houthooft et al., <i>VIME: Variational Information Maximizing Exploration</i></a></li>
+  <li><a href=https://arxiv.org/abs/1507.00814>Stadie et al., <i>Incentivizing Exploration In Reinforcement Learning With Deep Predictive Models</i></a></li>
+  <li><a href=http://www.ri.cmu.edu/publication_view.html?pub_id=7891>Bagnell, <i>An Invitation to Imitation</i></a></li>
+  <li><a href=https://arxiv.org/abs/1606.03476>Ho & Ermon, <i>Generative Adversarial Imitation Learning</i></a></li>
+</ol>
+
+<h3>General references</h3>
+<ul>
+  <li><a href="http://www.ualberta.ca/~szepesva/RLBook.html">Szepesvari, Algorithms for Reinforcement Learning</a></li>
+  <li><a href="http://www.athenasc.com/dpbook.html">Bertsekas, Dynamic Programming and Optimal Control, Vols I and II</a></li>
+  <li><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0471727822.html">Puterman, Markov Decision Processes: Discrete Stochastic Dynamic Programming</a></li>
+  <li><a href="http://adp.princeton.edu/">Powell, Approximate Dynamic Programming</a></li>
+</ul>
+
+<h3>Online courses</h3>
+<ul>
+<li> <a href="http://incompleteideas.net/sutton/609%20dropbox/">  Rich Sutton’s  class:  Reinforcement Learning for Artificial Intelligence, Fall 2016 </a></li>
+<li> <a href="http://rll.berkeley.edu/deeprlcourse-fa15/">  John Schulman’s and Pieter Abeel’s class:  Deep Reinforcement Learning, Fall 2015 </a></li>
+<li> <a href="http://rll.berkeley.edu/deeprlcourse/"> Sergey Levine’s, Chelsea Finn’s and John Schulman’s class:  Deep Reinforcement Learning, Spring 2017 </a></li>
+<li> <a href="http://www.abdeslam.net/robotlearningseminar"> Abdeslam Boularias’s class: Robot Learning Seminar</a></li>
+<li> <a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa15/"> Pieter Abeel’s class: Advanced Robotics, Fall 2015 </a></li>
+<li> <a href="http://homes.cs.washington.edu/~todorov/courses/amath579/index.html"> Emo Todorov’s class: Intelligent control through learning and optimization, Spring 2015 </a></li>
+<li> <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html"> David Silver’s class: Reinforcement learning </a></li>
+</ul>
+
+
+
+<a name="assignments"></a>
+<h2> Assignments and grading</h2>
+Please write all assignments in LaTeX using the NIPS style
+file. (<a href="./nips_2016.sty">sty
+  file</a>, <a href="./nips_2016.tex">tex example</a>)
+<ul>
+<li>Homework 1 <a href="./deeprl_hw1_src.tar.gz">code template</a>, 
+<a href="./10703_hw1.pdf">questions</a>, and 
+<a href="./deeprl_hw1_tex.tar.gz">tex source</a>.<br/>
+</ul>
+The course grade is a weighted average of assignments (60%) and an open-ended final project (40%).
+
 
 
 
@@ -56,193 +249,13 @@ Spring 2017, CMU 10703
   <li><a href="https://www.coursera.org/learn/machine-learning/">Andrew Ng on Coursera</a></li>
 </ul>
 
-Students less familiar with reinforcement learning  can warm start with:
-<ul>
-<li> First Chapters from <a href="https://webdocs.cs.ualberta.ca/~sutton/book/bookdraft2016sep.pdf">Reinforcement Learning: an Introduction, Sutton&Barto, Second Edition </a> </li>
-<li><a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html">Dave Silver’s course and lecture videos on reinforcement learning</a> </li>
-</ul>
-
-
-
-<a name="class goals"></a>
-<h2> Class goals</h2>
-<ul>
-<li>
-Understand existing algorithms for learning control policies guided by reinforcement, expert demonstrations or self-trials. Evaluate the sample complexity, generalization and generality of each. Implement and experiment with these algorithms.
-<li>Be able to understand research papers in the field of robotic learning.
-</li>
-<li>
-Try out some ideas/extensions of your own. Particular focus on incorporating true sensory signal from vision or tactile sensing, and exploring the synergy between learning from simulation versus learning from real experience. 
-</li>
-</ul>
-
-
-
-<a name="schedule"></a>
-<h2> Schedule</h2>
-The following schedule is tentative, it  will continuously change based on time constraints and interest of the people in the class. Reading materials and lecture notes will be added as lectures progress.
-<br>
-<br>
-
-<table border="0" cellpadding="5" width="100%">
-<tr>
-<th> <em>Date</em></th>
-<th> <em>Topic</em></th>
-<th> <em>Lecturer</em></th>
-<th> <em>Resources</em></th>
-</tr>
-<tr>
-<td>1/18</td>
-<td>Introduction</>
-<td>Katerina</td>
-<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture1_intro.pdf">Slides</a></td>
-</tr>
-<tr>
-<td>1/23</td>
-<td>Markov decision processes (MDPs), POMDPs</>
-<td>Katerina</td>
-<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture2_mdps.pdf">Slides</a>, Ch 3</td>
-</tr>
-<tr>
-<td>1/25</td>
-<td>Solving known MDPs: Dynamic Programming</td>
-<td>Katerina</td>
-<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture3_mdp_planning.pdf">Slides</a>, Ch 4</td>
-</tr>
-<tr>
-<td>1/30</td>
-<td>Monte Carlo learning: value function (VF) estimation and optimization</>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_MC.pdf>Slides</a>, Ch 5</td>
-</tr>
-<tr>
-<td>2/1</td>
-<td>Temporal difference learning: VF estimation and optimization,  Q learning, SARSA </td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_TD.pdf>Slides</a>, Ch 8</td>
-</tr>
-<tr>
-<td>2/2</td>
-<td>OpenAI Gym recitation </td>
-<td>Devin</td>
-<td><a href=https://katefvision.github.io/10703_openai_gym_recitation.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/6</td>
-<td>Planning and learning: Dyna, Monte carlo tree search</td>
-<td>Katerina</td>
-<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture6_planinglearning.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/8</td>
-<td>VF approximation, MC, TD with VF approximation, Control with VF approximation</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_VFA.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/13</td>
-<td>VF approximation, Deep Learning, Convnets, back-propagation</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_DL.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/15</td>
-<td>Deep Learning, Convnets, optimization tricks</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_DL2.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/20</td>
-<td>Deep Q Learning : Double Q learning, replay memory</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_DQL.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/22</td>
-<td>Policy Gradients (1): REINFORCE, Natural Policy gradients, Variance reduction in gradient estimation, Actor-Critic, Deep Actor-Critic, TRPO</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_PG1.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>2/27</td>
-<td>Policy Gradients (2)</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_PG2.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>3/1</td>
-<td>Closer look at Continuous Actions, Variational Autoencoders, multimodal stochastic policies</td>
-<td>Russ</td>
-<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_contactions.pdf>Slides</a></td>
-</tr>
-<tr>
-<td>3/6</td>
-<td>Exploration</td>
-<td>Katerina</td>
-<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture_exploration.pdf>Slides</a>,  <a href=https://arxiv.org/abs/1605.09674>VIME</a>, <a href=https://arxiv.org/abs/1507.00814>Incentivising</a> </td>
-</tr>
-<td>3/8</td>
-<td>Imitation 1</td>
-<td>Katerina</td>
-<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture_imitation1.pdf>Slides</a>, <a href=http://www.ri.cmu.edu/publication_view.html?pub_id=7891>Invitation</a>, <a href=https://arxiv.org/abs/1606.03476>Adversarial</a> </td>
-</tr>
-<td>3/20</td>
-<td>Imitation 2</td>
-<td>Katerina</td>
-<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture_imitation2.pdf>Slides</a> </td>
-</tr>
-</table>
-
-
-
-<a name="assignments"></a>
-<h2> Assignments </h2>
-<ul>
-<li>Homework 1 <a href="./deeprl_hw1_src.tar.gz">Source Code  Template</a>, 
-<a href="./10703_hw1.pdf">Questions</a><br/>
-</ul>
-
-
-
-<a name="related materials"></a>
-<h2>Related materials</h2>
-<h3>Textbooks</h3>
-<ul>
-  <li><a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton &amp; Barto, Reinforcement Learning: An Introduction</a></li>
-  <li><a href="http://www.ualberta.ca/~szepesva/RLBook.html">Szepesvari, Algorithms for Reinforcement Learning</a></li>
-  <li><a href="http://www.athenasc.com/dpbook.html">Bertsekas, Dynamic Programming and Optimal Control, Vols I and II</a></li>
-  <li><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0471727822.html">Puterman, Markov Decision Processes: Discrete Stochastic Dynamic Programming</a></li>
-  <li><a href="http://adp.princeton.edu/">Powell, Approximate Dynamic Programming</a></li>
-</ul>
-
-<h3>Online classes</h3>
-<ul>
-<li> <a href="http://incompleteideas.net/sutton/609%20dropbox/">  Rich Sutton’s  class:  Reinforcement Learning for Artificial Intelligence, Fall 2016 </a></li>
-<li> <a href="http://rll.berkeley.edu/deeprlcourse-fa15/">  John Schulman’s and Pieter Abeel’s class:  Deep Reinforcement Learning, Fall 2015 </a></li>
-<li> <a href="http://rll.berkeley.edu/deeprlcourse/"> Sergey Levine’s, Chelsea Finn’s and John Schulman’s class:  Deep Reinforcement Learning, Spring 2017 </a></li>
-  <li> <a href="http://www.abdeslam.net/robotlearningseminar"> Abdeslam Boularias’s class: Robot Learning Seminar</a></li>
-  <li> <a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa15/"> Pieter Abeel’s class: Advanced Robotics, Fall 2015 </a></li>
-  <li> <a href="http://homes.cs.washington.edu/~todorov/courses/amath579/index.html"> Emo Todorov’s class: Intelligent control through learning and optimization, Spring 2015 </a></li>
-  <li> <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html"> David Silver’s class: Reinforcement learning </a></li>
-</ul>
-
-
-
-<a name="grading"></a>
-<h2> Grading</h2>
-<ul>
-<li>  Open-ended final project (40%) </li>
-<li>  Assignments  (60%) </li> 
-</ul>
-
+Students less familiar with reinforcement learning can warm start with the first chapters of Sutton&Barto and with the first lectures of Dave Silver’s course.
 
 
 <a name=“feedback”></a>
 <h2>Feedback</h2>
 <p> We very much appreciate your 
 <a href="http://www.emailmeform.com/builder/form/F4yoT4dOK2jYNWd9d17ebE9X"> feedback</a>. Feel free to remain anonymous, yet always try to be polite.</p>
-
-
 
 
 </td>
