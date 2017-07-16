@@ -1,0 +1,341 @@
+<html>
+<head>
+<title>CMU 10-808: Language Grounding to Vision and Control</title>
+</head>
+
+<style>
+a {text-decoration: none; }
+a {color:#0000A0;}         /* unvisited link */
+a:visited {color:#0000A0;} /* visited link */
+a:hover {color:#FF0000;}   /* mouse over link */
+a:active {color:#0000A0;}  /* selected link */
+ol{
+    list-style-type: none;
+    counter-reset: elementcounter;
+    padding-left: 0;
+}
+#bib_list_books li:before{
+    content: "";
+    counter-increment:elementcounter;
+    font-weight: bold;
+}
+#bib_list_articles li:before{
+    content: "[" counter(elementcounter) "] ";
+    counter-increment:elementcounter;
+}
+</style>
+<BODY MARGINWIDTH=10 MARGINHEIGHT=20>
+<CENTER>
+<table border="0" cellpadding="0" cellspacing="0" width="850">
+<td valign="top">
+<h1>
+Language Grounding to Vision and Control
+<br>
+<font size="+2">
+Fall 2017, CMU 10-808
+</font>
+</h1>
+
+<br>
+<b>Instructor:</b> <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a> <br>
+<b>Lectures:</b> T, 9:00-12pm, 5222 Gates and Hillman Centers (GHC)<br>
+<b>Office Hours:</b>
+ Tuesday 3:00-4:00pm, 8015 GHC <br><!--
+<b>Teaching Assistants:</b>
+<ul>
+</ul>
+
+<b>Communication:</b> <a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">Piazza</a> is intended for all future announcements, general questions about the course, clarifications about assignments, student questions to each other, discussions about material, and so on. We strongly encourage all students to participate in discussion, ask, and answer questions through Piazza (<a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">link</a>). <br> <br>
+
+
+<b>Acknowledgement:</b> We are grateful to <a href="https://portal.xsede.org"> XSEDE</a> and <a href="https://www.psc.edu"> PSC</a> for donating GPU resources to our students for their homework and project development.<br>
+-->
+<ul>
+<li> <a href="#class goals">Class goals</a></li>
+<li> <a href="#schedule">Schedule</a> </li>
+<li> <a href="#resources">Resources</a> </li>
+<li> <a href="#assignments">Grading</a> </li>
+<li> <a href="#prerequisites">Prerequisites</a> </li>
+</ul>
+
+
+
+<a name="class goals"></a>
+
+<h2> Class goals</h2>
+This is a seminar course that will visit recent progress on the problem of language acquisition through pairing of multiple modalities (vision, haptics, audio etc), as well as active interaction with the world. The central questions/topics we will visit are: <ul>
+<li> How can language help accelerate learning of an autonomous agent (if at all) </li>
+<li> How humans acquire lamguage and why? </li>
+<li>Inductive biases for strong generalization</li>
+<li> Architectures for agent capable of compositional grounding of language </li>
+<li> State representation of video visual scenes and imaginations from story reading</li>
+<li> Language for high level planning and control.</li>
+<li> Neural-symbolic architectures for hierarchical symbolic grounding</li>
+</ul>
+
+
+
+<a name="schedule"></a>
+<h2> Schedule</h2>
+The following schedule is tentative, it  will continuously change based on time constraints and interest of the people in the class. Lecture notes will be added as lectures progress.
+<br>
+<br>
+<table border="0" cellpadding="5" width="100%">
+<tr>
+<th width="8%" align="left" > <em>Date</em></th>
+<th width="66%" align="left" > <em>Topic</em></th>
+<th width="14%" align="left" > <em>Readings</em></th>
+<th width="12%" align="left" > <em>Presenters</em></th>
+</tr>
+<tr>
+<td>8/29</td>
+<td>The Grounding Problem, Learning from data VS Programming with Language, Explanation based learning, Course Overview </td>
+<td><a href="#readings">[1-6]</a></td>
+<td>Katerina</td>
+</tr>
+<tr>
+<td>9/5</td>
+<td> Grounding language on programs(I): Executable semantic parsing</td>
+<td><a href="#readings">[16-19]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10/10</td>
+<td> Compositionally of meaning and recursive networks</td>
+<td><a href="#readings">[20-15]</a></td>
+<td></td>
+</tr>
+<tr>
+
+<td>9/12</td>
+<td> Grounding language on visual concepts: img2sentence, sentence2img</td>
+<td><a href="#readings">[43-47]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>9/19</td>
+<td> Language and memory state representations: architectures that keep track of state </td>
+<td><a href="#readings">[26-29]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>9/26</td>
+<td>Grounding language on programs: program induction</td>
+<td><a href="#readings">[30-34]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10/3</td>
+<td> buffer</td>
+<td><a href="#readings"></a></td>
+<td></td>
+</tr>
+<tr>
+<td>10/10</td>
+<td> Grounding language to robotic programs: Word2action</td>
+<td><a href="#readings">[55-66]</a></td>
+<td></td>
+</tr>
+<tr>
+
+<td>10/17</td>
+<td> Grounding language to robotic programs(II): Word2action</td>
+<td><a href="#readings">[55-66]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10/24</td>
+<td>Grounding language to Visual programs: modular visual question answering </td>
+<td><a href="#readings">[35-37]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10/31</td>
+<td> Language for expressing common sense, intuitive theories of physics and psychology, story comprehension</td>
+<td><a href="#readings">[52-54, 9-10]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11/7</td>
+<td>Hierarchical grounding of symbols: neural-symbolic architectures, rule based NN</td>
+<td><a href="#readings">[7-10]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11/14</td>
+<td>Grounding mathematical expressions for learning theorem proving</td>
+<td><a href="#readings">[11-14]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11/21</td>
+<td>Grounding language through multi-agent collaboration </td>
+<td><a href="#readings">[48-51]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11/28</td>
+<td>Conversational agents</td>
+<td><a href="#readings">[39-42]</a></td>
+<td></td>
+</tr>
+<tr>
+<td>12/5</td>
+<td>buffer</td>
+<td><a href="#readings"></a></td>
+<td></td>
+</tr>
+</table>
+
+<a name="resources"></a>
+<h2>Resources</h2>
+<a name="readings"></a>
+<h3>Readings</h3>
+<ol id="bib_list_articles">
+  <li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>The Development of Embodied Cognition: Six Lessons from Babies</i></a></li>
+<li><a href="http://sapir.psych.wisc.edu/papers/lupyan_bergen_topics_inPress.pdf"> <i>How language programs the mind</i></a></li>
+<li><a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.596.1257&rep=rep1&type=pdf"> <i>Explanation-Based Generalization: A Unifying View</i></a></li>
+<li><a href="http://courses.media.mit.edu/2004spring/mas966/Harnad%20symbol%20grounding.pdf"> <i>The symbol grounding problem</i></a></li>
+<li><a href="https://pdfs.semanticscholar.org/4e1b/56627a4213db40828ad180400a290d77507f.pdf"> <i>Symbol Grounding and Meaning- A Comparison of High-Dimensional and Embodied Theories of Meaning</i></a></li>
+<li><a href="https://arxiv.org/pdf/1102.1808.pdf"> <i>From Machine Learning to Machine Reasoning</i></a></li>
+
+
+<li><a href="http://www.petuum.com/pdf/Hu_etal_ACL16.pdf"> <i>Harnessing Deep Neural Networks with Logic Rules</i></a></li>
+<li><a href="https://www.cs.cmu.edu/~rsalakhu/papers/emnlp16deep.pdf"> <i>Deep Neural Networks with Massive Learned Knowledge</i></a></li>
+<li><a href="https://dspace.mit.edu/handle/1721.1/100183"> <i>The Genesis Story Understanding and Story Telling System: A 21st Century Step toward Artificial Intelligence</i></a></li>
+<li><a href="http://drops.dagstuhl.de/opus/volltexte/2015/5290/pdf/19.pdf"> <i>Model-based Story Summary</i></a></li>
+
+
+<li><a href="https://arxiv.org/abs/1705.11040"> <i>End-to-end Differentiable Proving</i></a></li>
+<li><a href="https://aclweb.org/anthology/W/W16/W16-1309.pdf"> <i>Learning Knowledge Base Inference with Neural Theorem Provers</i></a></li>
+<li><a href="https://arxiv.org/abs/1701.06972"> <i>Deep Network Guided Proof Search</i></a></li>
+<li><a href="https://arxiv.org/abs/1606.04442"> <i>DeepMath - Deep Sequence Models for Premise Selection</i></a></li>
+
+
+
+<li><a href="https://staff.fnwi.uva.nl/e.bruni/publications/bruni2014multimodal.pdf"> <i>Multimodal Distributional Semantics</i></a></li>
+
+
+
+<li><a href="https://arxiv.org/abs/1601.01280"> <i>Language to Logical Form with Neural Attention</i></a></li>
+<li><a href="https://cs.stanford.edu/~pliang/papers/executable-cacm2016.pdf"> <i>Learning Executable Semantic Parsers for Natural Language Understanding</i></a></li>
+<li><a href="https://arxiv.org/abs/1611.00020"> <i>Neural Symbolic Machines: Learning Semantic Parsers on Freebase withWeak Supervision</i></a></li>
+<li><a href="https://arxiv.org/abs/1704.07926"> <i>From Language to Programs- Bridging Reinforcement Learning and Maximum Marginal Likelihood</i></a></li>
+
+<li><a href="http://www.aclweb.org/anthology/W15-4002"> <i>Recursive Neural Networks Can Learn Logical Semantics</i></a></li>
+<li><a href="https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf"> <i>Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank</i></a></li>
+<li><a href="https://www.cs.cornell.edu/~oirsoy/files/nips14drsv.pdf"> <i>Deep Recursive Neural Networks for Compositionality in Language</i></a></li>
+<li><a href="http://www.aclweb.org/anthology/P15-1150"> <i>Improved Semantic Representations From Tree-Structured Long Short-Term Memory Networks</i></a></li>
+<li><a href="https://openreview.net/pdf?id=B1vRTeqxg"> <i>Learning Continuous semantic representations of symbolic expressions</i></a></li>
+<li><a href="https://arxiv.org/abs/1706.01427"> <i>A simple neural network module for relational reasoning</i></a></li>
+
+
+<li><a href="https://openreview.net/pdf?id=HJ0NvFzxl"> <i>Learning graphical state transitions</i></a></li>
+<li><a href="https://openreview.net/pdf?id=HJ0NvFzxl"> <i>Gated Graph Sequence Neural Networks</i></a></li>
+<li><a href="https://arxiv.org/abs/1612.03969"> <i>Tracking the World State with Recurrent Entity Networks</i></a></li>
+<li><a href="https://papers.nips.cc/paper/5846-end-to-end-memory-networks.pdf"> <i>End-To-End Memory Networks</i></a></li>
+
+<li><a href="https://papers.nips.cc/paper/5785-unsupervised-learning-by-program-synthesis.pdf"> <i>Unsupervised Learning by Program Synthesis</i></a></li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/03/main2.pdf"> <i>Differentiable Programs with Neural Libraries</i></a></li>
+<li><a href="https://arxiv.org/abs/1605.06640"> <i>Programming with a differentiable Forth interpreter</i></a></li>
+<li><a href="https://arxiv.org/abs/1611.01989"> <i>DeepCoder- Learning to Write Programs</i></a></li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/NLPSynthesis.pdf"> <i>Program Synthesis using Natural Language</i></a></li>
+
+<li><a href="https://arxiv.org/abs/1601.01705"> <i>Learning to Compose neural networks for Question Answering</i></a></li>
+<li><a href="https://arxiv.org/abs/1704.05526"> <i>Learning to Reason- End-to-End Module Networks for Visual Question Answering</i></a></li>
+<li><a href="https://arxiv.org/abs/1705.03633"> <i>Inferring and Executing Programs for Visual Reasoning </i></a></li>
+
+
+<li><a href="http://web.mit.edu/cocosci/Papers/cogsci00_FINAL.pdf"> <i>Word learning as Bayesian inference</i></a></li>
+
+
+<li><a href="https://arxiv.org/abs/1611.08669"> <i>Visual Dialog</i></a></li>
+<li><a href="https://arxiv.org/abs/1703.06585"> <i>Learning Cooperative Visual Dialog Agents with Deep Reinforcement Learning</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Coherent Dialogue with Attention-based Language Models</i></a></li>
+<li><a href="https://arxiv.org/abs/1703.06585"> <i>Learning Cooperative Visual Dialog Agents with Deep Reinforcement Learning</i></a></li>
+
+<li><a href="https://www.mpi-inf.mpg.de/fileadmin/inf/d2/akata/generating-visual-explanations.pdf"> <i>Generating Visual Explanations</i></a></li>
+<li><a href="https://homes.cs.washington.edu/~ali/papers/SituationRecognition.pdf"> <i>Situation Recognition: Visual Semantic Role Labeling for Image Understanding</i></a></li>
+<li><a href="https://lirias.kuleuven.be/bitstream/123456789/556355/3/Collell_Zhang_Moens_AAAI2017.pdf"> <i>Imagined Visual Representations as Multimodal Embeddings</i></a></li>
+<li><a href="https://arxiv.org/abs/1411.2539"> <i>Unifying Visual-Semantic Embeddings with Multimodal Neural Language Models</i></a></li>
+<li><a href="http://www.aclweb.org/anthology/D14-1032"> <i>Learning Abstract Concept Embeddings from Multi-Modal Data- Since You Probably Can't See What I Mean</i></a></li>
+
+<li><a href="https://arxiv.org/pdf/1704.06960.pdf"> <i>Translating neuralese</i></a></li>
+<li><a href="https://arxiv.org/abs/1703.04908"> <i>Emergence of Grounded Compositional Language in Multi-Agent Populations</i></a></li>
+<li><a href="https://arxiv.org/abs/1612.07182"> <i>Multi-Agent Cooperation and the Emergence of (Natural) Language</i></a></li>
+<li><a href="http://www.cs.utexas.edu/~jsinapov/papers/Thomason_RoboNLP_ACL_2017.pdf"> <i>Guiding Interaction Behaviors for Multi-modal Grounded Language Learning with Backpropagation</i></a></li>
+
+
+
+
+
+</i></a></li>
+
+
+
+
+
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>The Need for Biases in Learning Generalizations</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Theory-based Bayesian models of inductive learning and reasoning</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Intuitive Theories</i></a></li>
+
+
+
+
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Mapping Instructions and Visual Observations to Actions with Reinforcement Learning</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Reinforcement Learning for Mapping Instructions to Actions</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Environment-Driven Lexicon Induction for High-Level Instructions</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Listen, Attend, and Walk: Neural Mapping of Navigational Instructions to Action Sequences</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Tell Me Dave- Context-Sensitive Grounding of Natural Language to Manipulation Instructions</i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Interpreting and Executing Recipes with a Cooking Robot </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Learning to Follow Navigational Directions </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Learning to Interpret Natural Language Commands through Human-Robot Dialog </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Learning to Interpret Natural Language Navigation Instructions from Observations
+ </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Navigational Instruction Generation as Inverse Reinforcement Learning with Neural Machine Translation  </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>A Natural Language Planner Interface for Mobile Manipulators  </i></a></li>
+<li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf"> <i>Understanding Natural Language Commands for Robotic Navigation and Mobile Manipulation</i></a></li>
+
+
+
+
+
+
+
+
+
+
+</i></a></li>
+
+
+</ol>
+
+
+
+
+
+<a name="assignments"></a>
+<h2> Grading</h2>
+The grade is determined by a paper presentation you need to do, your participation in class (asking good questions, making connections between topics etc.) as well as a final project. The final project can be a small innovation on top of methods and algorithms presented in the course, or your own project idea on topics covered in the course. 
+The course grade is a weighted average of your participation in class (30%), your paper presentation (30%), and your final project (40%).
+
+
+
+
+<a name="prerequisites"></a>
+<h2> Prerequisites</h2> 
+
+<p>This course assumes  familiarity with Computer Vision, basic NLP concepts, machine learning, deep learning. 
+
+</td>
+</table>
+</BODY>
+</HTML>
+
+
+
+
+
+
+
+
