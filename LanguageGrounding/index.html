@@ -1,0 +1,382 @@
+
+<html>
+<head>
+<title>CMU 10703: Deep RL and Control</title>
+</head>
+
+<style>
+a {text-decoration: none; }
+a {color:#0000A0;}         /* unvisited link */
+a:visited {color:#0000A0;} /* visited link */
+a:hover {color:#FF0000;}   /* mouse over link */
+a:active {color:#0000A0;}  /* selected link */
+ol{
+    list-style-type: none;
+    counter-reset: elementcounter;
+    padding-left: 0;
+}
+
+#bib_list_books li:before{
+    content: "";
+    counter-increment:elementcounter;
+    font-weight: bold;
+}
+#bib_list_articles li:before{
+    content: "[" counter(elementcounter) "] ";
+    counter-increment:elementcounter;
+}
+
+</style>
+<BODY MARGINWIDTH=10 MARGINHEIGHT=20>
+<CENTER>
+<table border="0" cellpadding="0" cellspacing="0" width="850">
+<td valign="top">
+<h1>
+Deep Reinforcement Learning and Control
+<br>
+<font size="+2">
+Spring 2017, CMU 10703
+</font>
+</h1>
+
+<br>
+<b>Instructors:</b> <a href="https://www.cs.cmu.edu/~katef/">Katerina Fragkiadaki</a>, <a href="http://www.cs.cmu.edu/~rsalakhu/">Ruslan Satakhutdinov</a> <br>
+<b>Lectures:</b> MW, 3:00-4:20pm, 4401 Gates and Hillman Centers (GHC)<br>
+<b>Office Hours:</b>
+<ul>
+  <li>Katerina: Thursday 1.30-2.30pm, 8015 GHC <br></li>
+  <li>Russ: Friday 1.15-2.15pm, 8017 GHC <br></li>
+</ul>
+<b>Teaching Assistants:</b>
+<ul>
+  <li>Devin Schwab: Thursday 2-3pm, 4225 NSH</li>
+  <li>Chun-Liang Li: Thursday 1-2pm, 8F Open study area GHC </li>
+  <li>Renato Negrinho: Wednesday 6-7pm, 8213 GHC</li>
+</ul>
+
+<b>Communication:</b> <a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">Piazza</a> is intended for all future announcements, general questions about the course, clarifications about assignments, student questions to each other, discussions about material, and so on. We strongly encourage all students to participate in discussion, ask, and answer questions through Piazza (<a href="https://piazza.com/class/ixqn73fyhhzzx?cid=4">link</a>). <br> <br>
+
+<b>Acknowledgement:</b> We are grateful to <a href="https://portal.xsede.org"> XSEDE</a> and <a href="https://www.psc.edu"> PSC</a> for donating GPU resources to our students for their homework and project development.<br>
+
+<ul>
+<li> <a href="#class goals">Class goals</a></li>
+<li> <a href="#schedule">Schedule</a> </li>
+<li> <a href="#resources">Resources</a> </li>
+<li> <a href="#assignments">Assignments and grading</a> </li>
+<li> <a href="#prerequisites">Prerequisites</a> </li>
+</ul>
+
+
+
+<a name="class goals"></a>
+<h2> Class goals</h2>
+<ul>
+<li>Implement and experiment with existing algorithms for learning control policies guided by reinforcement, expert demonstrations or self-trials.</li>
+<li>Evaluate the sample complexity, generalization and generality of these algorithms.</li>
+<li>Be able to understand research papers in the field of robotic learning. </li>
+<li>Try out some ideas/extensions of your own. Particular focus on incorporating true sensory signal from vision or tactile sensing, and exploring the synergy between learning from simulation versus learning from real experience.</li>
+</ul>
+
+
+<a name="schedule"></a>
+<h2> Schedule</h2>
+The following schedule is tentative, it  will continuously change based on time constraints and interest of the people in the class. Reading materials and lecture notes will be added as lectures progress.
+<br>
+<br>
+
+<table border="0" cellpadding="5" width="100%">
+<tr>
+<th width="8%" align="left" > <em>Date</em></th>
+<th width="66%" align="left" > <em>Topic (slides)</em></th>
+<th width="12%" align="left" > <em>Lecturer</em></th>
+<th width="14%" align="left" > <em>Readings</em></th>
+</tr>
+<tr>
+<td>1/18</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture1_intro.pdf">Introduction</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[1]</a></td>
+</tr>
+<tr>
+<td>1/23</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture2_mdps.pdf">Markov decision processes (MDPs), POMDPs</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 3]</td>
+</tr>
+<tr>
+<td>1/25</td>
+<td><a href="https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture3_mdp_planning.pdf">Solving known MDPs: Dynamic Programming</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 4]</td>
+</tr>
+<tr>
+<td>1/30</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_MC.pdf>Monte Carlo learning: value function (VF) estimation and optimization</a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 5]</td>
+</tr>
+<tr>
+<td>2/1</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_TD.pdf>Temporal difference learning: VF estimation and optimization,  Q learning, SARSA </a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 8]</td>
+</tr>
+<tr>
+<td>2/2</td>
+<td>Recitation: <a href=https://katefvision.github.io/10703_openai_gym_recitation.pdf>OpenAI Gym recitation </a></td>
+<td>Devin</td>
+</tr>
+<tr>
+<td>2/6</td>
+<td><a href=https://www.cs.cmu.edu/~katef/DeepRLControlCourse/lectures/lecture6_planninglearning.pdf>Planning and learning: Dyna, Monte carlo tree search</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[SB, Ch 8; 2]</a></td>
+</tr>
+<tr>
+<td>2/8</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_VFA.pdf>VF approximation, MC, TD with VF approximation, Control with VF approximation</a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 9]</a></td>
+</tr>
+<tr>
+<td>2/13</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part1.pdf>VF approximation, Deep Learning, Convnets, back-propagation</a></td>
+<td>Russ</td>
+<td><a href="#readings">[GBC, Ch 6]</a></td>
+</tr>
+<tr>
+<td>2/15</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/talk_NN_part2.pdf>Deep Learning, Convnets, optimization tricks</a></td>
+<td>Russ</td>
+<td><a href="#readings">[GBC, Ch 9]</a></td>
+</tr>
+<tr>
+<td>2/20</td>
+<td> <a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_DQL.pdf> Deep Q Learning : Double Q learning, replay memory</a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>2/22,27</td>
+<td> <a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_PG.pdf> Policy Gradients I</a>, 
+ <a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_PG2.pdf> Policy Gradients II</a></td>
+<td>Russ</td>
+<td><a href="#readings">[GBC, Ch 13]</a></td>
+</tr>
+<tr>
+<td>2/28</td>
+<td>Recitation: <a href="tf_recitation/10703_tf_recitation.pdf"> Homework 2 Overview</a> (<a href="https://tensorflow.org">TensorFlow.org</a>, <a href="https://keras.io/">Keras.io</a>, <a href="https://www.psc.edu/index.php/bridges/user-guide/connecting-to-bridges">Bridges User Guide</a>; <a href="tf_recitation/tf_code_snippets.tar.gz">Code Snippets</a>)</td>
+<td>Devin</td>
+</tr>
+<tr>
+<td>3/1</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_VAE.pdf> Continuous Actions, Variational Autoencoders, multimodal stochastic policies</a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>3/6</td>
+<td><a href="./katefSlides/immitation_learning_I_katef.pdf">Imitation Learning I: Behavior Cloning, DAGGER, Learning to Search</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[5-13]</a></td>
+</tr>
+<td>3/8</td>
+<td><a href="./katefSlides/imitation_learning_II_katef.pdf">Imitation Learning II: Inverse RL, MaxEnt IRL, Adversarial Imitation Learning</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[14-20]</a></td>
+</tr>
+<tr>
+<td>3/20</td>
+<td><a href="http://www.cs.cmu.edu/~siddh/">Sidd Srinivasa</a>: Robotic manipulation</td>
+<td>Guest</td>
+</tr>
+<tr>
+<td>3/22</td>
+<td><a href="./katefSlides/trajectoryoptimization_katef.pdf">Optimal control, trajectory optimization</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[21]</a></td>
+</tr>
+<tr>
+<td>3/27</td>
+<td><a href="https://www.cs.cmu.edu/~mmv/">Manuela Veloso</a>: Mobile colaborative robots--RoboCUP</td>
+<td>Guest</td>
+</tr>
+<tr>
+<td>3/29</td>
+<td><a href="./katefSlides/imitate_controlers_katef.pdf">Imitation learning III: imitating controllers, learning local models, GPS</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[22-26]</a></td>
+</tr>
+<tr>
+<td>4/3</td>
+<td><a href="http://www.cs.cmu.edu/~cga/">Chris Atkeson</a>: <a href="http://www.cs.cmu.edu/~cga/tmp-public/drl.pptx">What (D)RL ignores: State Estimation, Robustness, And Alternative Strategies</a></td>
+<td>Guest</td>
+</tr>
+<tr>
+<td>4/5</td>
+<td><a href="./katefSlides/endtoendmodelbasedRL_katef.pdf">End-to-end policy optimization through back-propagation</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[27-29]</a></td>
+</tr>
+<tr>
+<td>4/10</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_Exploration.pdf>
+Exploration and Exploitation </a></td>
+<td>Russ</td>
+<td><a href="#readings">[SB, Ch 2]</td>
+</tr>
+<tr>
+<td>4/12</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_HRL.pdf>
+Hierarchical RL and Tranfer Learning  </a></td>
+<td>Russ</td>
+</tr>
+</tr>
+<tr>
+<td>4/13</td>
+<td><a href="./katefSlides/RECITATIONtrajectoryoptimization_katef.pdf">Recitation: Trajectory optimization - iterative LQR</a>(10:00-11:30am, 8102 GHC)</td>
+<td>Katerina</td>
+</tr>
+<tr>
+<td>4/17</td>
+<td><a href="./katefSlides/sim2real.pdf">Transfer learning(2): Simulation to Real World</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[30-37]</a></td>
+</tr>
+<tr>
+<td>4/19</td>
+<td><a href="http://www.cs.cmu.edu/~./maxim/">Maxim Likhachev</a>: Learning in Planning: Experience Graphs</td>
+<td>Guest</td>
+</tr>
+<tr>
+<td>4/24</td>
+<td><a href=http://www.cs.cmu.edu/~rsalakhu/10703/Lecture_Memory.pdf>
+Memory Augmented RL  </a></td>
+<td>Russ</td>
+</tr>
+<tr>
+<td>4/26</td>
+<td><a href="./katefSlides/oneshotlearning_katef.pdf">Learning to learn, one shot learning</a></td>
+<td>Katerina</td>
+<td><a href="#readings">[38-42]</a></td>
+</tr>
+</table>
+
+
+
+
+<a name="resources"></a>
+<h2>Resources</h2>
+<a name="readings"></a>
+<h3>Readings</h3>
+<ol id="bib_list_books">
+  <li>[SB] <a href="http://incompleteideas.net/sutton/book/bookdraft2016aug.pdf">Sutton & Barto, <i>Reinforcement Learning: An Introduction</i></a></li>
+  <li>[GBC] <a href=http://www.deeplearningbook.org>Goodfellow, Bengio & Courville, <i>Deep Learning</i></a></li>
+</ol>
+<ol id="bib_list_articles">
+  <li><a href="http://cogs.indiana.edu/~cogdev/labwork/6_lessons.pdf">Smith & Gasser, <i>The Development of Embodied Cognition: Six Lessons from Babies</i></a></li>
+  <li><a href=https://gogameguru.com/i/2016/03/deepmind-mastering-go.pdf>Silver, Huang et al., <i>Mastering the Game of Go with Deep Neural Networks and Tree Search</i></a></li>
+  <li><a href=https://arxiv.org/abs/1605.09674>Houthooft et al., <i>VIME: Variational Information Maximizing Exploration</i></a></li>
+  <li><a href=https://arxiv.org/abs/1507.00814>Stadie et al., <i>Incentivizing Exploration In Reinforcement Learning With Deep Predictive Models</i></a></li>
+  <li><a href=http://www.ri.cmu.edu/publication_view.html?pub_id=7891>Bagnell, <i>An Invitation to Imitation</i></a></li>
+  <li><a href="https://arxiv.org/abs/1607.05241">Nguyen, <i>Imitation Learning with Recurrent Neural Networks</i></a></li>
+  <li><a href="https://arxiv.org/abs/1506.03099">Bengio et al., <i>Scheduled Sampling for Sequence Prediction with Recurrent Neural Networks</i></a></li>
+  <li><a href="http://www.umiacs.umd.edu/~hal/docs/daume06searn-practice.pdf">III et al., <i>Searn in Practice</i></a></li>
+  <li><a href="https://arxiv.org/abs/1604.07316">Bojarski et al., <i>End to End Learning for Self-Driving Cars</i></a></li>
+  <li><a href="https://papers.nips.cc/paper/5421-deep-learning-for-real-time-atari-game-play-using-offline-monte-carlo-tree-search-planning">Guo et al., <i>Deep Learning for Real-Time Atari Game Play Using Offline Monte-Carlo Tree Search Planning</i></a></li>
+  <li><a href="https://arxiv.org/abs/1603.03833">Rouhollah et al., <i>Learning real manipulation tasks from virtual demonstrations using LSTM</i></a></li>
+  <li><a href="https://drive.google.com/file/d/0B8yawPEPr6RLclhfSnFabDVoUzg/view">Ross et al., <i>Learning Monocular Reactive UAV Control in Cluttered Natural Environments</i></a></li>
+  <li><a href="http://www.jmlr.org/proceedings/papers/v15/ross11a/ross11a.pdf">Ross et al., <i>A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</i></a></li>
+  <li><a href="http://www.cs.cmu.edu/~bziebart/publications/navigate-bziebart.pdf">Ziebart et al., <i>Navigate Like a Cabbie: Probabilistic Reasoning from Observed Context-Aware Behavior</i></a></li>
+  <li><a href="http://ai.stanford.edu/~ang/papers/icml04-apprentice.pdf">Abbeel et al., <i>Apprenticeship Learning via Inverse Reinforcement Learning</i></a></li>
+  <li><a href="https://arxiv.org/abs/1605.08478">Ho et al., <i>Model-Free Imitation Learning with Policy Optimization</i></a></li>
+  <li><a href="https://arxiv.org/abs/1603.00448">Finn et al., <i>Guided Cost Learning: Deep Inverse Optimal Control via Policy Optimization</i></a></li>
+  <li><a href="http://www.aaai.org/Papers/AAAI/2008/AAAI08-227.pdf">Ziebart et al., <i>Maximum Entropy Inverse Reinforcement Learning</i></a></li>
+  <li><a href="http://www.cs.cmu.edu/~bziebart/publications/human-behavior-bziebart.pdf">Ziebart et al., <i>Human Behavior Modeling with Maximum Entropy Inverse Optimal Control</i></a></li>
+  <li><a href="https://arxiv.org/abs/1611.03852">Finn et al., <i>Connection between Generative Adversarial Networks, Inverse Reinforcement Learning, and Energy-Based Models</i></a></li>
+  <li><a href="https://homes.cs.washington.edu/~todorov/papers/TassaIROS12.pdf">Tassa et al., <i>Synthesis and Stabilization of Complex Behaviors through Online Trajectory Optimization</i></a></li>
+  <li><a href="https://pdfs.semanticscholar.org/21c9/dd68b908825e2830b206659ae6dd5c5bfc02.pdf">Watter et al., <i>Embed to Control: A Locally Linear Latent Dynamics Model for Control from Raw Images</i></a></li>
+  <li><a href="https://people.eecs.berkeley.edu/~svlevine/papers/mfcgps.pdf">Levine et al., <i>Learning Neural Network Policies with Guided Policy Search under Unknown Dynamics</i></a></li>
+  <li><a href="https://graphics.stanford.edu/projects/gpspaper/gps_full.pdf">Levine et al., <i>Guided Policy Search</i></a></li>
+  <li><a href="https://arxiv.org/abs/1504.00702">Levine et al., <i>End-to-End Training of Deep Visuomotor Policies</i></a></li>
+  <li><a href="https://arxiv.org/abs/1611.05095">Kumar et al., <i>Learning Dexterous Manipulation Policies from Experience and Imitation</i></a></li>
+  <li><a href="https://arxiv.org/abs/1703.04070">Mishra et al., <i>Prediction and Control with Temporal Segment Models</i></a></li>
+  <li><a href="https://arxiv.org/abs/1509.02971">Lillicrap et al., <i>Continuous control with deep reinforcement learning</i></a></li>
+  <li><a href="https://papers.nips.cc/paper/5796-learning-continuous-control-policies-by-stochastic-value-gradients.pdf">Heess et al., <i>Learning Continuous Control Policies by Stochastic Value Gradients</i></a></li>
+  <li><a href="http://ieeexplore.ieee.org/document/7487140">Mordatch et al., <i>Combining model-based policy search with online model learning for control of physical humanoids</i></a></li>
+  <li><a href="https://arxiv.org/abs/1610.01283">Rajeswaran et al., <i>EPOpt: Learning Robust Neural Network Policies Using Model Ensembles</i></a></li>
+  <li><a href="https://openreview.net/pdf?id=r1Ue8Hcxg">Zoph et al., <i>Neural Architecture Search with Reinforcement Learning</i></a></li>
+  <li><a href="http://wafr2016.berkeley.edu/papers/WAFR_2016_paper_106.pdf">Tzeng et al., <i>Adapting Deep Visuomotor Representations with Weak Pairwise Constraints</i></a></li>
+  <li><a href="http://jmlr.org/papers/volume17/15-239/15-239.pdf">Ganin et al., <i>Domain-Adversarial Training of Neural Networks</i></a></li>
+  <li><a href="https://arxiv.org/abs/1610.04286">Rusu et al., <i>Sim-to-Real Robot Learning from Pixels with Progressive Nets</i></a></li>
+  <li><a href="http://www.cs.utexas.edu/~jphanna/gsl.pdf">Hanna et al., <i>Grounded Action Transformation for Robot Learning in Simulation</i></a></li>
+  <li><a href="https://arxiv.org/abs/1610.03518">Christiano et al., <i>Transfer from Simulation to Real World through Learning Deep Inverse Dynamics Model</i></a></li>
+  <li><a href="https://courses.cs.washington.edu/courses/cse590v/13au/intraface.pdf">Xiong et al., <i>Supervised Descent Method and its Applications to Face Alignment</i></a></li>
+  <li><a href="https://arxiv.org/abs/1703.07326">Duan et al., <i>One-Shot Imitation Learning</i></a></li>
+  <li><a href="https://arxiv.org/abs/1604.00289">Lake et al., <i>Building Machines That Learn and Think Like People</i></a></li>
+  <li><a href="https://arxiv.org/abs/1606.04474">Andrychowicz et al., <i>Learning to learn by gradient descent by gradient descent</i></a></li>
+  <li><a href="https://arxiv.org/pdf/1703.03400.pdf">Finn et al., <i>Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks</i></a></li>
+</ol>
+
+<h3>General references</h3>
+<ul>
+  <li><a href="http://www.ualberta.ca/~szepesva/RLBook.html">Szepesvari, Algorithms for Reinforcement Learning</a></li>
+  <li><a href="http://www.athenasc.com/dpbook.html">Bertsekas, Dynamic Programming and Optimal Control, Vols I and II</a></li>
+  <li><a href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-0471727822.html">Puterman, Markov Decision Processes: Discrete Stochastic Dynamic Programming</a></li>
+  <li><a href="http://adp.princeton.edu/">Powell, Approximate Dynamic Programming</a></li>
+</ul>
+
+<h3>Online courses</h3>
+<ul>
+<li> <a href="http://incompleteideas.net/sutton/609%20dropbox/">  Rich Sutton’s  class:  Reinforcement Learning for Artificial Intelligence, Fall 2016 </a></li>
+<li> <a href="http://rll.berkeley.edu/deeprlcourse-fa15/">  John Schulman’s and Pieter Abeel’s class:  Deep Reinforcement Learning, Fall 2015 </a></li>
+<li> <a href="http://rll.berkeley.edu/deeprlcourse/"> Sergey Levine’s, Chelsea Finn’s and John Schulman’s class:  Deep Reinforcement Learning, Spring 2017 </a></li>
+<li> <a href="http://www.abdeslam.net/robotlearningseminar"> Abdeslam Boularias’s class: Robot Learning Seminar</a></li>
+<li> <a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa15/"> Pieter Abeel’s class: Advanced Robotics, Fall 2015 </a></li>
+<li> <a href="http://homes.cs.washington.edu/~todorov/courses/amath579/index.html"> Emo Todorov’s class: Intelligent control through learning and optimization, Spring 2015 </a></li>
+<li> <a href="http://www0.cs.ucl.ac.uk/staff/D.Silver/web/Teaching.html"> David Silver’s class: Reinforcement learning </a></li>
+</ul>
+
+
+
+<a name="assignments"></a>
+<h2> Assignments and grading</h2>
+Please write all assignments in LaTeX using the NIPS style
+file. (<a href="./nips_2016.sty">sty
+  file</a>, <a href="./nips_2016.tex">tex example</a>)
+<ul>
+<li>Homework 1 <a href="./deeprl_hw1_src.tar.gz">code template</a>, 
+<a href="./10703_hw1.pdf">questions</a>, and 
+<a href="./deeprl_hw1_tex.tar.gz">tex source</a>.<br/>
+<li>Homework 2 <a href="./deeprl_hw2_src.tar.gz">code template</a>,
+  <a href="./10703_hw2.pdf">questions</a>
+    <li>Homework 3 <a href="./deeprl_hw3_src.tar.gz">code template</a>, <a href="./10703_hw3.pdf">questions</a>
+    </li>
+</ul>
+<br/>
+The course grade is a weighted average of assignments (60%) and an open-ended final project (40%).
+
+
+
+
+<a name="prerequisites"></a>
+<h2> Prerequisites</h2> 
+
+<p>This course assumes some familiarity with reinforcement learning, numerical optimization,  and machine learning. Suggested relevant courses in MLD are 10701 Introduction to Machine Learning, 10807 Topics in Deep Learning, 10725 Convex Optimization, or online equivalent versions of these courses. For an introduction to machine learning and neural networks, see:</p>
+<ul>
+  <li><a href="http://cs231n.github.io">Andrej Karpathy’s course</a></li>
+  <li><a href="https://www.coursera.org/course/neuralnets">Geoff Hinton on Coursera</a></li>
+  <li><a href="https://www.coursera.org/learn/machine-learning/">Andrew Ng on Coursera</a></li>
+</ul>
+
+Students less familiar with reinforcement learning can warm start with the first chapters of Sutton&Barto and with the first lectures of Dave Silver’s course.
+
+
+<a name=“feedback”></a>
+<h2>Feedback</h2>
+<p> We very much appreciate your 
+<a href="http://www.emailmeform.com/builder/form/F4yoT4dOK2jYNWd9d17ebE9X"> feedback</a>. Feel free to remain anonymous, yet always try to be polite.</p>
+
+<p><font color="#D3D3D3">Web design: Anton Badev</font></p>
+</td>
+</table>
+</BODY>
+</HTML>
